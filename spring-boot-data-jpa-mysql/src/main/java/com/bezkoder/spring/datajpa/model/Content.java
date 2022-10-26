@@ -3,7 +3,7 @@ package com.bezkoder.spring.datajpa.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tutorials")
+@Table(name = "contents")
 public class Content {
 
 	@Id

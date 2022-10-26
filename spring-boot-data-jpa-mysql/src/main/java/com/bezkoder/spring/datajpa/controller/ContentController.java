@@ -30,7 +30,7 @@ public class ContentController {
 	ContentRepository contentRepository;
 
 	@GetMapping("/contents")
-	public ResponseEntity<List<Content>> getAllcontents(@RequestParam(required = false) String title) {
+	public ResponseEntity<List<Content>> getAllContents(@RequestParam(required = false) String title) {
 		try {
 			List<Content> contents = new ArrayList<Content>();
 
@@ -50,7 +50,7 @@ public class ContentController {
 	}
 
 	@GetMapping("/contents/{id}")
-	public ResponseEntity<Content> getcontentById(@PathVariable("id") long id) {
+	public ResponseEntity<Content> getContentById(@PathVariable("id") long id) {
 		Optional<Content> contentData = contentRepository.findById(id);
 
 		if (contentData.isPresent()) {
@@ -61,10 +61,9 @@ public class ContentController {
 	}
 
 	@PostMapping("/contents")
-	public ResponseEntity<Content> createcontent(@RequestBody Content content) {
+	public ResponseEntity<Content> createContent(@RequestBody Content content) {
 		try {
-			Content _content = contentRepository
-					.save(new Content(content.getTitle(), content.getDescription(), false));
+			Content _content = contentRepository.save(new Content(content.getTitle(), content.getDescription(), false));
 			return new ResponseEntity<>(_content, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,7 +71,7 @@ public class ContentController {
 	}
 
 	@PutMapping("/contents/{id}")
-	public ResponseEntity<Content> updatecontent(@PathVariable("id") long id, @RequestBody Content content) {
+	public ResponseEntity<Content> updateContent(@PathVariable("id") long id, @RequestBody Content content) {
 		Optional<Content> contentData = contentRepository.findById(id);
 
 		if (contentData.isPresent()) {
@@ -87,7 +86,7 @@ public class ContentController {
 	}
 
 	@DeleteMapping("/contents/{id}")
-	public ResponseEntity<HttpStatus> deletecontent(@PathVariable("id") long id) {
+	public ResponseEntity<HttpStatus> deleteContent(@PathVariable("id") long id) {
 		try {
 			contentRepository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -97,7 +96,7 @@ public class ContentController {
 	}
 
 	@DeleteMapping("/contents")
-	public ResponseEntity<HttpStatus> deleteAllcontents() {
+	public ResponseEntity<HttpStatus> deleteAllContents() {
 		try {
 			contentRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -120,5 +119,4 @@ public class ContentController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }
